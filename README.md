@@ -1,6 +1,8 @@
 # StockBar (SB)
 
-![Logo Laravel](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
+<p align="center">
+  <img src="public/logopt.png" alt="Logo SB">
+</p>
 
 **Aplikasi web untuk melacak laporan gudang dan menarik data ke aplikasi utama**
 
