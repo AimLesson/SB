@@ -13,6 +13,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/logs', function () {
+    return view('logs');
+})->middleware(['auth'])->name('logs');
+
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('barangs', BarangController::class);

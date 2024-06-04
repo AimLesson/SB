@@ -21,5 +21,10 @@ class BarangLog extends Model
         // Add other fields if needed
     ];
 
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barang_id');
+    }
+
     // Define relationships and other model methods here
 }

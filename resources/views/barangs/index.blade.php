@@ -14,7 +14,7 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">QR Code</th>
-                                <th scope="col" class="px-6 py-3">Actions</th>
+                                <th scope="col" class="px-6 py-3">Activity</th>
                                 <th scope="col" class="px-6 py-3">No Item</th>
                                 <th scope="col" class="px-6 py-3">Nama Barang</th>
                                 <th scope="col" class="px-6 py-3">Kode Log</th>
@@ -71,13 +71,13 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="flex justify-between items-center mb-4 border-b pb-4 mt-4">
+                <div class="flex items-center mb-4 border-b pb-4 mt-4">
                     <a href="{{ route('barangs.create') }}"
-                        class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-700 focus:outline-none focus:border-green-800 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">Add
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">Add
                         Barang</a>
                     <!-- Button to trigger modal -->
                     <button data-modal-target="qr-modal" data-modal-toggle="qr-modal"
-                        class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-700 focus:outline-none focus:border-blue-800 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">QR Scan</button>
+                        class="ms-3 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">QR Scan</button>
                 </div>
             </div>
         </div>

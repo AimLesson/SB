@@ -147,22 +147,24 @@
                         </table>
                     </div>
 
-                    <div class="mt-6 flex justify-between">
+                    <div class="mt-6 flex">
                         <a href="{{ route('barangs.index') }}"
                             class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                             Back
                         </a>
-                        <div class="inline-flex space-x-2">
+                        @if (Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin')
+                        <div class=" ms-3 inline-flex space-x-2">
                             <a href="{{ route('barangs.edit', $barang) }}"
-                                class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">Edit</a>
-                            <form id="delete-form-{{ $barang->id }}"
+                                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">Edit</a>
+                                <form id="delete-form-{{ $barang->id }}"
                                 action="{{ route('barangs.destroy', $barang) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" onclick="confirmDelete({{ $barang->id }})"
-                                    class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">Remove</button>
+                                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">Remove</button>
                             </form>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
