@@ -17,7 +17,7 @@
             <img src="{{ asset('logopt.png') }}" class="h-10 me-3 sm:h-11" alt="SIPUR Logo" />
             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">StockBar</span>
         </a>
-        <ul class="space-y-2 font-medium">
+        <ul class="space-y-2 font-medium"><!--UpperSide-->
             <li>
                 <a href="{{ route('dashboard') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -32,7 +32,7 @@
                 </a>
             </li>
             @if (Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin')
-            <li>
+            <li><!--Setup-->
                 <button type="button"
                     class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-setup" data-collapse-toggle="dropdown-setup">
@@ -79,9 +79,8 @@
                         </a>
                     </li>
                 </ul>
-            </li>
-            @endif
-            <li>
+            </li>@endif
+            <li><!--Tabel-->
                 <button type="button"
                     class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-tabel" data-collapse-toggle="dropdown-tabel">
@@ -111,23 +110,10 @@
                                 Daftar Barang
                             </span>
                         </a>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5 19V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M9 3v14m7 0v4" />
-                            </svg>
-                            <span class="ms-3">
-                                Daftar Items
-                            </span>
-                        </a>
                     </li>
                 </ul>
             </li>
-            <li>
+            <li><!--Activity-->
                 <button type="button"
                     class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-aktivitas" data-collapse-toggle="dropdown-aktivitas">
@@ -175,7 +161,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li><!--Report-->
                 <button type="button"
                     class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-report" data-collapse-toggle="dropdown-report">
@@ -223,7 +209,7 @@
                 </ul>
             </li>
         </ul>
-        <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+        <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"><!--LowerSide-->
             <li>
                 <a href="{{ route('profile.edit') }}"
                     class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">

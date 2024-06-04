@@ -2,12 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use app\Models\BarangLog;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
-use Yajra\DataTables\Contracts\DataTable;
-use Yajra\DataTables\Html\Builder;
-use Yajra\DataTables\AbstractDataTable;
-
 
 class BarangController extends Controller
 {
@@ -78,7 +74,9 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        return view('barangs.show', compact('barang'));
+        $logs = $barang->logs;
+
+        return view('barangs.show', compact('barang', 'logs'));
     }
 
     /**
@@ -86,6 +84,7 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
+        
         return view('barangs.edit', compact('barang'));
     }
 
@@ -124,6 +123,57 @@ class BarangController extends Controller
         $barang->delete();
 
         return redirect()->route('barangs.index')->with('success', 'Barang deleted successfully.');
+    }
+
+    public function entry(Request $request, Barang $barang)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        // Logic for adding quantity to the barang
+        $barang->jumlah += $request->input('quantity');
+        $barang->save();
+
+        // Record the entry in the logs
+        $barang->logs()->create([
+            'action' => 'entry',
+            'quantity' => $request->input('quantity'),
+            'created_at' => now(),
+        ]);
+
+        return redirect()->route('barangs.index')->with('success', 'Entry recorded successfully.');
+    }
+
+    public function exit(Request $request, Barang $barang)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        // Logic for subtracting quantity from the barang
+        if ($barang->jumlah < $request->input('quantity')) {
+            return redirect()->route('barangs.index')->with('error', 'Insufficient quantity.');
+        }
+
+        $barang->jumlah -= $request->input('quantity');
+        $barang->save();
+
+        // Record the exit in the logs
+        $barang->logs()->create([
+            'action' => 'exit',
+            'quantity' => $request->input('quantity'),
+            'created_at' => now(),
+        ]);
+
+        return redirect()->route('barangs.index')->with('success', 'Exit recorded successfully.');
+    }
+
+    public function logs(Barang $barang)
+    {
+        $logs = $barang->logs;
+
+        return view('barangs.show', compact('barang', 'logs'));
     }
 }
 

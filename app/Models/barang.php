@@ -30,4 +30,10 @@ class Barang extends Model
         'merk',
         'no_akun',
     ];
+
+
+    public function logs()
+    {
+        return $this->hasMany(BarangLog::class);
+    }
 }

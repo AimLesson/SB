@@ -56,13 +56,48 @@
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.flash.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#barangTable').DataTable({
+                    $('#barangTable').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'csv',
+                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
+                                },
+                                {
+                                    extend: 'excel',
+                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
+                                },
+                                {
+                                    extend: 'pdf',
+                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
+                                },
+                                {
+                                    extend: 'print',
+                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800',
+                                    customize: function(win) {
+                                        $(win.document.body)
+                                            .css('font-size', '10pt')
+                                            .prepend(
+                                                '<div style="display:flex; text-align: center; justify-content: space-between; align-items: center; margin-bottom: 20px;">' +
+                                                '<img src="logopt1.png" style="width: 200px;">' +
+                                                '</div>'
+                                            );
+
+                                        $(win.document.body).find('table')
+                                            .addClass('display')
+                                            .css('width', '100%')
+                                            .css('font-size', 'inherit');
+                                    }
+                                }
+                                ]
+                            });
+                    });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#LogTable').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
-                    {
-                        extend: 'copy',
-                        className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
-                    },
                     {
                         extend: 'csv',
                         className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
@@ -75,17 +110,83 @@
                         extend: 'pdf',
                         className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
                     },
-                    {
-                        extend: 'print',
-                        className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
-                    }
+                                {
+                                    extend: 'print',
+                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800',
+                                    customize: function(win) {
+                                        $(win.document.body)
+                                            .css('font-size', '10pt')
+                                            .prepend(
+                                                '<div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">' +
+                                                '<img src="{{ asset('logopt1.png') }}" style="width: 200px;">' +
+                                                '</div>'
+                                            );
+
+                                        $(win.document.body).find('table')
+                                            .addClass('display')
+                                            .css('width', '100%')
+                                            .css('font-size', 'inherit');
+                                    }
+                                }
                 ]
             });
         });
     </script>
     <script>
+        function setFormAction(action, type) {
+            const form = document.getElementById('quantity-form');
+            const quantityInput = document.getElementById('quantity-input');
+            const modalTitle = document.getElementById('modal-title');
+            const modalSubmit = document.getElementById('modal-submit');
+
+            form.action = action;
+
+            switch (type) {
+                case 'Tambah':
+                    modalTitle.innerText = 'Enter Quantity to Add';
+                    quantityInput.classList.remove('hidden');
+                    break;
+                case 'Ambil':
+                    modalTitle.innerText = 'Enter Quantity to Remove';
+                    quantityInput.classList.remove('hidden');
+                    break;
+                case 'Detail':
+                    modalTitle.innerText = 'Product Details';
+                    quantityInput.classList.add('hidden');
+                    modalSubmit.classList.add('hidden');
+                    break;
+                case 'Edit':
+                    modalTitle.innerText = 'Edit Product';
+                    quantityInput.classList.add('hidden');
+                    modalSubmit.innerText = 'Edit';
+                    modalSubmit.classList.remove('hidden');
+                    break;
+                case 'Remove':
+                    modalTitle.innerText = 'Are you sure you want to delete this product?';
+                    quantityInput.classList.add('hidden');
+                    modalSubmit.innerText = 'Yes, I\'m sure';
+                    modalSubmit.classList.remove('hidden');
+                    break;
+            }
+
+            document.getElementById('popup-modal').classList.remove('hidden');
+        }
+
+        document.querySelectorAll('[data-modal-hide]').forEach(button => {
+            button.addEventListener('click', () => {
+                document.getElementById('popup-modal').classList.add('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-modal-toggle]').forEach(button => {
+            button.addEventListener('click', () => {
+                document.getElementById('popup-modal').classList.toggle('hidden');
+            });
+        });
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            @if(session('success'))
+            @if (session('success'))
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
@@ -93,7 +194,7 @@
                     timer: 3000,
                     showConfirmButton: false
                 });
-            @elseif(session('error'))
+            @elseif (session('error'))
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',

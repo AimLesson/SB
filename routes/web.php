@@ -16,7 +16,9 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('barangs', BarangController::class);
-    Route::get('/barangs/export/{format}', [BarangController::class, 'export'])->name('barangs.export');
+    Route::post('barangs/{barang}/entry', [BarangController::class, 'entry'])->name('barangs.entry');
+    Route::post('barangs/{barang}/exit', [BarangController::class, 'exit'])->name('barangs.exit');
+    Route::get('barangs/{barang}/logs', [BarangController::class, 'logs'])->name('barangs.show');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
