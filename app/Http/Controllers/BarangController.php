@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use app\Models\BarangLog;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BarangController extends Controller
 {
@@ -31,6 +33,10 @@ class BarangController extends Controller
             ->orWhere('no_akun', 'like', "%{$search}%")
             ->get();
 
+    foreach ($barangs as $barang) {
+        $barang->qr_code = base64_encode(QrCode::format('svg')->size(100)->generate($barang->no_barcode));
+    }
+
         return view('barangs.index', compact('barangs'));
     }
 
@@ -39,7 +45,8 @@ class BarangController extends Controller
      */
     public function create()
     {
-        return view('barangs.create');
+        $randomBarcode = 'SB-' . Str::random(8); // Example of a structured barcode
+        return view('barangs.create', compact('randomBarcode'));
     }
 
     /**
@@ -72,8 +79,10 @@ class BarangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Barang $barang)
+    public function show($id)
     {
+        $barang = Barang::findOrFail($id);
+        $barang->qr_code = QrCode::size(100)->generate($barang->no_barcode);
         $logs = $barang->logs;
 
         return view('barangs.show', compact('barang', 'logs'));
@@ -82,9 +91,13 @@ class BarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Barang $barang)
+    public function edit($id)
     {
         
+        $barang = Barang::findOrFail($id);
+        if (is_null($barang->no_barcode)) {
+            $barang->no_barcode = 'SB-' . Str::random(8); // Example of a structured barcode
+        }
         return view('barangs.edit', compact('barang'));
     }
 
@@ -174,6 +187,31 @@ class BarangController extends Controller
         $logs = $barang->logs;
 
         return view('barangs.show', compact('barang', 'logs'));
+    }
+    public function searchAndExit(Request $request)
+    {
+        $request->validate([
+            'no_barcode' => 'required|string',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $qrCode = $request->input('qr_code');
+        $quantity = $request->input('quantity');
+
+        $barang = Barang::where('no_barcode', $qrCode)->first();
+
+        if (!$barang) {
+            return redirect()->back()->with('error', 'Barang not found');
+        }
+
+        if ($barang->jumlah < $quantity) {
+            return redirect()->back()->with('error', 'Insufficient quantity available');
+        }
+
+        $barang->jumlah -= $quantity;
+        $barang->save();
+
+        return redirect()->back()->with('success', 'Quantity exited successfully');
     }
 }
 

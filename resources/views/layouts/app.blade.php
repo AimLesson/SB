@@ -56,49 +56,9 @@
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.flash.min.js"></script>
     <script>
         $(document).ready(function() {
-                    $('#barangTable').DataTable({
-                            dom: 'Bfrtip',
-                            buttons: [
-                                {
-                                    extend: 'csv',
-                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
-                                },
-                                {
-                                    extend: 'excel',
-                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
-                                },
-                                {
-                                    extend: 'pdf',
-                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
-                                },
-                                {
-                                    extend: 'print',
-                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800',
-                                    customize: function(win) {
-                                        $(win.document.body)
-                                            .css('font-size', '10pt')
-                                            .prepend(
-                                                '<div style="display:flex; text-align: center; justify-content: space-between; align-items: center; margin-bottom: 20px;">' +
-                                                '<img src="logopt1.png" style="width: 200px;">' +
-                                                '</div>'
-                                            );
-
-                                        $(win.document.body).find('table')
-                                            .addClass('display')
-                                            .css('width', '100%')
-                                            .css('font-size', 'inherit');
-                                    }
-                                }
-                                ]
-                            });
-                    });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#LogTable').DataTable({
+            $('#barangTable').DataTable({
                 dom: 'Bfrtip',
-                buttons: [
-                    {
+                buttons: [{
                         extend: 'csv',
                         className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
                     },
@@ -110,24 +70,63 @@
                         extend: 'pdf',
                         className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
                     },
-                                {
-                                    extend: 'print',
-                                    className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800',
-                                    customize: function(win) {
-                                        $(win.document.body)
-                                            .css('font-size', '10pt')
-                                            .prepend(
-                                                '<div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">' +
-                                                '<img src="{{ asset('logopt1.png') }}" style="width: 200px;">' +
-                                                '</div>'
-                                            );
+                    {
+                        extend: 'print',
+                        dom: 'Bfrtip',
+                        className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800',
+                        customize: function(win) {
+                            $(win.document.body)
+                                .css('font-size', '10pt')
+                                .prepend(
+                                    '<div style="display:flex; text-align: center; justify-content: space-between; align-items: center; margin-bottom: 20px;">' +
+                                    '<img src="logopt1.png" style="width: 200px;">' +
+                                    '</div>'
+                                );
 
-                                        $(win.document.body).find('table')
-                                            .addClass('display')
-                                            .css('width', '100%')
-                                            .css('font-size', 'inherit');
-                                    }
-                                }
+                            $(win.document.body).find('table')
+                                .addClass('display')
+                                .css('width', '100%')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#LogTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'csv',
+                        className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'bg-blue-500 text-white px-4 py-2 rounded-lg dark:bg-blue-700 dark:hover:bg-blue-800',
+                        customize: function(win) {
+                            $(win.document.body)
+                                .css('font-size', '10pt')
+                                .prepend(
+                                    '<div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">' +
+                                    '<img src="{{ asset('logopt1.png') }}" style="width: 200px;">' +
+                                    '</div>'
+                                );
+
+                            $(win.document.body).find('table')
+                                .addClass('display')
+                                .css('width', '100%')
+                                .css('font-size', 'inherit');
+                        }
+                    }
                 ]
             });
         });
